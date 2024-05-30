@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .basic {
+            margin: 2px;
+            border: 1px solid black;
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            background-color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main"></div>
+    <div id="kolorek">
+        <input type="radio" id="c1" name="color" value="1">
+        <label for="c1">wall</label><br>
+        <input type="radio" id="c2" name="color" value="2">
+        <label for="c2">ladder</label><br>
+        <input type="radio" id="c3" name="color" value="3">
+        <label for="c3">ladder-end</label><br>
+        <input type="radio" id="c4" name="color" value="4">
+        <label for="c4">invisible</label><br>
+        <input type="radio" id="c5" name="color" value="5">
+        <label for="c5">rope</label><br>
+        <input type="radio" id="c6" name="color" value="6">
+        <label for="c6">slider</label><br>
+        <input type="radio" id="c7" name="color" value="7">
+        <label for="c7">fire</label><br>
+        <input type="radio" id="c8" name="color" value="8">
+        <label for="c8">fire-block</label><br>
+        <input type="radio" id="c9" name="color" value="9">
+        <label for="c9">fucking disappearing block</label><br>
+        <input type="radio" id="c10" name="color" value="10">
+        <label for="c10">pipe</label><br>
+        <input type="radio" id="c11" name="color" value="0">
+        <label for="c11">empty</label><br>
+    </div>
+    <button id="submit" onclick="submit()">Submit</button>
+    <script>
+
+        let rysuj = false
+        for (let i = 0; i < 40; i++) {
+            for (let j = 0; j < 25; j++) {
+                let square = document.createElement("div")
+                let parent = document.getElementById("main")
+                square.classList.add('basic')
+                square.value = 0
+                square.id = `${i},${j}`
+                square.style.top = `${100 + 11 * j}px`
+                square.style.left = `${300 + 11 * i}px`
+                square.setAttribute('onclick', ` set()`)
+                square.setAttribute('onmouseover', ` paint('${i},${j}')`)
+                parent.appendChild(square)
+
+            }
+        }
+        function set() {
+            rysuj ? rysuj = false : rysuj = true
+        }
+        function paint(name) {
+            if (rysuj) {
+                let option
+                for (let i = 1; i < 12; i++) {
+                    if (document.getElementById(`c${i}`).checked) {
+                        option = document.getElementById(`c${i}`).value
+                        break
+                    }
+                }
+                if (option == 1) {
+                    let painted = document.getElementById(name)
+                    painted.style.backgroundColor = 'yellow'
+                    painted.value = option
+                }
+                else if (option == 2) {
+                    let painted = document.getElementById(name)
+                    painted.style.backgroundColor = 'green'
+                    painted.value = option
+                }
+                else if (option == 3) {
+                    let painted = document.getElementById(name)
+                    painted.style.backgroundColor = 'orange'
+                    painted.value = option
+                }
+                else if (option == 4) {
+                    let painted = document.getElementById(name)
+                    painted.style.backgroundColor = 'blue'
+                    painted.value = option
+                }
+                else if (option == 5) {
+                    let painted = document.getElementById(name)
+                    painted.style.backgroundColor = 'white'
+                    painted.value = option
+                }
+                else if (option == 6) {
+                    let painted = document.getElementById(name)
+                    painted.style.backgroundColor = 'brown'
+                    painted.value = option
+                }
+                else if (option == 7) {
+                    let painted = document.getElementById(name)
+                    painted.style.backgroundColor = 'red'
+                    painted.value = option
+                }
+                else if (option == 8) {
+                    let painted = document.getElementById(name)
+                    painted.style.backgroundColor = 'red'
+                    painted.value = option
+                }
+                else if (option == 9) {
+                    let painted = document.getElementById(name)
+                    painted.style.backgroundColor = 'gray'
+                    painted.value = option
+                }
+                else if (option == 10) {
+                    let painted = document.getElementById(name)
+                    painted.style.backgroundColor = 'purple'
+                    painted.value = option
+                }
+                else if (option == 0) {
+                    let painted = document.getElementById(name)
+                    painted.style.backgroundColor = 'black'
+                    painted.value = 0
+                }
+            }
+        }
+        function submit() {
+            let arr = [
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                []]
+            for (let i = 0; i < 40; i++) {
+                for (let j = 0; j < 25; j++) {
+                    let element = document.getElementById(`${i},${j}`)
+                    arr[j].push(parseInt(element.value))
+                }
+            }
+            console.log(arr);
+            navigator.clipboard.writeText(JSON.stringify(arr))
+        }
+
+    </script>
+</body>
+
+</html>
